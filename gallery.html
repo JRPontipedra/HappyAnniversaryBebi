@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gallery 💜 Anniversary</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+min-height:100vh;
+background:linear-gradient(135deg,#2d004d,#5a189a,#7b2cbf,#c77dff);
+background-size:400% 400%;
+animation:bg 10s ease infinite;
+color:white;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* HEADER */
+.header{
+text-align:center;
+padding:40px 20px;
+}
+
+.header h1{
+font-size:2.5rem;
+font-weight:700;
+}
+
+/* GALLERY */
+.gallery{
+padding:20px;
+}
+
+.gallery img{
+width:100%;
+height:250px;
+object-fit:cover;
+border-radius:15px;
+transition:.3s;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,.4);
+}
+
+.gallery img:hover{
+transform:scale(1.05);
+}
+
+/* LIGHTBOX */
+.lightbox{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.8);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.lightbox img{
+max-width:90%;
+max-height:80%;
+border-radius:15px;
+box-shadow:0 0 30px white;
+}
+
+/* FLOAT HEARTS */
+.heart{
+position:absolute;
+color:white;
+font-size:20px;
+animation:float 8s linear infinite;
+opacity:.6;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh);opacity:0}
+20%{opacity:1}
+100%{transform:translateY(-100px);opacity:0}
+}
+
+.logout-container{
+    position:fixed;
+    top:20px;
+    right:20px;
+    z-index:1000;
+}
+
+.logout-btn{
+    background:#ffffff;
+    color:#6a0dad;
+    border:none;
+    padding:10px 22px;
+    border-radius:50px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 8px 20px rgba(0,0,0,.3);
+}
+
+.logout-btn:hover{
+    background:#e9d5ff;
+    transform:translateY(-2px);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<!-- HEADER -->
+<div class="header">
+<h1>💜 Our Anniversary Gallery 💜</h1>
+<p>Memories we will keep forever ❤️</p>
+</div>
+
+<div class="logout-container">
+    <button class="logout-btn" onclick="logout()">
+        🚪 Logout
+    </button>
+</div>
+
+<!-- GALLERY GRID -->
+<div class="container gallery">
+<div class="row g-3">
+
+<div class="col-6 col-md-4">
+<img src="Messenger_creation_CCDF1B34-7281-405A-92BC-774459B1AEAD.jpeg" style="height: 100%;" onclick="openImg(this)">
+</div>
+
+<div class="col-6 col-md-4">
+<img src="Messenger_creation_B0AAA2D3-1024-4D52-AAE2-4341A721D5B1.jpeg"  onclick="openImg(this)">
+<img src="Messenger_creation_F01964C1-E725-4220-8BB1-6EDC37034B7E.jpeg" style="margin-top: 10px;" onclick="openImg(this)">
+
+</div>
+
+<div class="col-6 col-md-4">
+<img src="Messenger_creation_37056B58-1D9C-44F2-870A-FB6AE4E5B5D3.jpeg" style="height: 100%;" onclick="openImg(this)">
+</div>
+
+<div class="col-6 col-md-4">
+<img src="Messenger_creation_DE8245EB-EC75-4E8A-9A11-82ACA7AB2A02.jpeg" onclick="openImg(this)">
+</div>
+
+<div class="col-6 col-md-4">
+<img src="Messenger_creation_725C754E-FD83-45A0-AC35-5E6D72D0F90D.jpeg" onclick="openImg(this)">
+</div>
+
+<div class="col-6 col-md-4">
+<img src="Messenger_creation_98EDE3BE-8707-4341-9647-7C1D4AAC5F2F.jpeg" onclick="openImg(this)">
+</div>
+
+</div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeImg()">
+<img id="lightboxImg">
+</div>
+
+<script>
+
+function logout(){
+
+    Swal.fire({
+        title:"Logout?",
+        text:"Are you sure you want to go back to the homepage?",
+        icon:"question",
+        showCancelButton:true,
+        confirmButtonColor:"#7b2cbf",
+        cancelButtonColor:"#999",
+        confirmButtonText:"Yes, Logout",
+        cancelButtonText:"Cancel"
+    }).then((result)=>{
+
+        if(result.isConfirmed){
+
+            Swal.fire({
+                title:"See you again! 💜",
+                text:"Thank you for visiting our anniversary album.",
+                icon:"success",
+                timer:1500,
+                showConfirmButton:false
+            }).then(()=>{
+                window.location.href="index.html";
+            });
+
+        }
+
+    });
+
+}
+
+/* POPUP ON LOAD */
+window.onload = function () {
+
+    const startYear = 2026; // Unang anniversary year
+    const today = new Date();
+
+    let anniversary = today.getFullYear() - startYear + 1;
+
+    // Kung hindi pa July 7 ngayong taon,
+    // huwag muna dagdagan ang anniversary.
+    if (
+        today.getMonth() < 6 ||
+        (today.getMonth() === 6 && today.getDate() < 7)
+    ) {
+        anniversary--;
+    }
+
+    // Para hindi maging 0 o negative
+    if (anniversary < 1) anniversary = 1;
+
+    // Function para sa 1st, 2nd, 3rd...
+    function ordinal(n) {
+        if (n % 10 == 1 && n % 100 != 11) return n + "st";
+        if (n % 10 == 2 && n % 100 != 12) return n + "nd";
+        if (n % 10 == 3 && n % 100 != 13) return n + "rd";
+        return n + "th";
+    }
+
+    Swal.fire({
+        title: `💜 Happy ${ordinal(anniversary)} Anniversary Bebi 💜`,
+        text: "I would like to say that I will always be at your side whatever it takes, and I love you 3000 ❤️",
+        icon: "success",
+        confirmButtonColor: "#7b2cbf"
+    });
+
+};
+
+/* OPEN IMAGE */
+function openImg(img){
+document.getElementById("lightbox").style.display="flex";
+document.getElementById("lightboxImg").src=img.src;
+}
+
+/* CLOSE IMAGE */
+function closeImg(){
+document.getElementById("lightbox").style.display="none";
+}
+
+/* FLOAT HEARTS */
+const hearts=document.getElementById("hearts");
+
+for(let i=0;i<30;i++){
+let heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="💜";
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(5+Math.random()*5)+"s";
+heart.style.fontSize=(15+Math.random()*20)+"px";
+heart.style.animationDelay=Math.random()*5+"s";
+hearts.appendChild(heart);
+}
+
+</script>
+
+</body>
+</html>
